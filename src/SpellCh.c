@@ -21,7 +21,7 @@ char * words[] =
 int length = sizeof(words)/sizeof(*words);
 
 int raven(char *w1, char *w2) {
-    while(*w1 || *w2) {
+    while((*w1 || *w2) && *w2) {
 	if (tolower(*w1)!=tolower(*w2)) {
 	    return 0;
 	}
@@ -81,19 +81,40 @@ int potb(char *word, char *eq)
 		return 1;
 	    }
 	}
-	for (reg = 0;reg < strlen(word); reg++) {
+	for (reg = 0;reg < strlen(word)+1; reg++) {
 	    for (i = 0; i < reg;i++) {
 		t[i] = word[i];
+		k = i + 1;
 	    }
 	    t[reg] = e;
 	    for (i = reg; i < strlen(word);i++) {
 		k = i+1;
 		t[i+1] = word[i];
 	    }
+	    if (reg == strlen(word)) {
+		k=reg;
+	    }
 	    t[k+1] ='\0';
 	    if (raven(t,eq)) {
 		return 1;
 	    }
+	}
+    }
+    return 0;
+}
+int perb(char *word, char *eq)
+{
+    int reg;
+    int i;
+    char t[BUFSIZ];
+    for (reg = 0;reg < strlen(word)-1; reg++) {
+	for (i = 0; i < sizeof(word);i++) {
+	    t[i] = word[i];
+	}
+	t[reg] = word[reg + 1];
+	t[reg + 1] = word[reg];
+	if (raven(t,eq)) {
+	    return 1;
 	}
     }
     return 0;
@@ -112,6 +133,10 @@ int SpellChecker(char *word, char *words[], char **ret) {
 	    return 0;
 	}
 	if(potb(word, words[reg])) {
+	    *ret = words[reg];
+	    return 0;
+	}
+	if(perb(word, words[reg])) {
 	    *ret = words[reg];
 	    return 0;
 	}
