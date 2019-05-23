@@ -21,7 +21,7 @@ char * words[] =
 int length = sizeof(words)/sizeof(*words);
 
 int raven(char *w1, char *w2) {
-    while((*w1 || *w2) && *w2) {
+    while(*w1 || *w2) {
 	if (tolower(*w1)!=tolower(*w2)) {
 	    return 0;
 	}
@@ -120,7 +120,7 @@ int perb(char *word, char *eq)
     return 0;
 }
 
-int SpellChecker(char *word, char *words[], char **ret) {
+int SpellCheckerAuto(char *word, char *words[], char **ret) {
     int reg;
     for (reg = 0;reg < length; reg++) {
 	if (raven(word, words[reg])) {
@@ -143,6 +143,40 @@ int SpellChecker(char *word, char *words[], char **ret) {
     }
     return 1;
 }
+int SpellCheckerHand(char *word, char *words[], char **ret) {
+    int reg, j;
+    int k = 0;
+    char *u[BUFSIZ];
+    for (reg = 0;reg < length; reg++) {
+	if (raven(word, words[reg])) {
+	    return 1;
+	}
+    }
+    for (reg = 0;reg < length; reg++) {
+	if(lishb(word, words[reg])) {
+	    u[k] = words[reg];
+	    k++;
+	}
+	if(potb(word, words[reg])) {
+	    u[k] = words[reg];
+	    k++;
+	}
+	if(perb(word, words[reg])) {
+	    u[k] = words[reg];
+	    k++;
+	}
+	
+    }
+    if (k) {
+	for (int i = 0;i < k;i++) {
+	    printf("%d-%s\n", i, u[i]);
+	}
+	scanf("%d", &j);
+	*ret = u[j];
+	return 0;
+    }
+    return 1;
+}
 int  main () {
     int reg;
     char word[BUFSIZ];
@@ -152,7 +186,7 @@ int  main () {
     }
     for(;;) {
 	scanf("%s",word);
-	if(SpellChecker(word, words, &ret) < 1) {
+	if(SpellCheckerHand(word, words, &ret) < 1) {
 	    printf(" %s ", ret);
 	} else {
 	    printf(" %s ", word);
