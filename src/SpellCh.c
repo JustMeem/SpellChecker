@@ -60,6 +60,44 @@ int lishb(char *word, char *eq)
     }
     return 0;
 }
+int potb(char *word, char *eq)
+{
+    char e;
+    int reg;
+    int i,k;
+    char t[BUFSIZ];
+    for (e = 'a';e <= 'z';e++) {
+	if(strlen(word) < 2) {
+	    t[0] = e;
+	    t[1] = word[0];
+	    t[2] = '\0';
+	    if (raven(t, eq)) {
+		return 1;
+	    }
+	    t[1] = e;
+	    t[0] = word[0];
+	    t[2] = '\0';
+	    if (raven(t, eq)) {
+		return 1;
+	    }
+	}
+	for (reg = 0;reg < strlen(word); reg++) {
+	    for (i = 0; i < reg;i++) {
+		t[i] = word[i];
+	    }
+	    t[reg] = e;
+	    for (i = reg; i < strlen(word);i++) {
+		k = i+1;
+		t[i+1] = word[i];
+	    }
+	    t[k+1] ='\0';
+	    if (raven(t,eq)) {
+		return 1;
+	    }
+	}
+    }
+    return 0;
+}
 
 int SpellChecker(char *word, char *words[], char **ret) {
     int reg;
@@ -70,6 +108,10 @@ int SpellChecker(char *word, char *words[], char **ret) {
     }
     for (reg = 0;reg < length; reg++) {
 	if(lishb(word, words[reg])) {
+	    *ret = words[reg];
+	    return 0;
+	}
+	if(potb(word, words[reg])) {
 	    *ret = words[reg];
 	    return 0;
 	}
