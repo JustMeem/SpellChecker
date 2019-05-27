@@ -30,7 +30,7 @@ int  main () {
     }
     for(;;) {
 	scanf("%s",word);
-	if(SpellCheckerAuto(word, &dict, &ret) < 1) {
+	if(SpellCheckerAuto(word, &dict, &ret)) {
 	    printf(" %s ", ret);
 	} else {
 	    printf(" %s ", word);

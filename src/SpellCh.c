@@ -17,17 +17,6 @@ int raven(char *w1, char *w2) {
     return 1;
 }
 
-void regist(char *word)
-{
-    int reg;
-    for (reg = 0;reg < sizeof(word); reg++) {
-	if (reg > 0) {
-	    word[reg] = tolower(word[reg]);
-	}
-    }
-    printf("%s", word);
-}
-
 int lishb(char *word, char *eq)
 {
     int reg, i,k;
@@ -181,32 +170,32 @@ int SpellCheckerAuto(char *word, Dict *dict, char **ret) {
     char *w;
     for (reg = 0;reg < dict->size; reg++) {
 	if (raven(word, words[reg])) {
-	    return 1;
+	    return 0;
 	}
     }
     for (reg = 0;reg < dict->size; reg++) {
 	if(lishb(word, words[reg])) {
 	    *ret = words[reg];
-	    return 0;
+	    return 1;
 	}
 	if(potb(word, words[reg])) {
 	    *ret = words[reg];
-	    return 0;
+	    return 1;
 	}
 	if(perb(word, words[reg])) {
 	    *ret = words[reg];
-	    return 0;
+	    return 1;
 	}
 	if(zamb(word, words[reg])) {
 	    *ret = words[reg];
-	    return 0;
+	    return 1;
 	}
     }
     if (razb(word, dict, &w)) {
 	*ret = w;
-	return 0;
+	return 1;
     }
-    return 1;
+    return 0;
 }
 
 int SpellCheckerHand(char *word, Dict *dict, char **ret) {
@@ -216,7 +205,7 @@ int SpellCheckerHand(char *word, Dict *dict, char **ret) {
     char *u[BUFSIZ];
     for (reg = 0;reg < dict->size; reg++) {
 	if (raven(word, words[reg])) {
-	    return 1;
+	    return 0;
 	}
     }
     for (reg = 0;reg < dict->size; reg++) {
@@ -244,12 +233,12 @@ int SpellCheckerHand(char *word, Dict *dict, char **ret) {
 	}
 	scanf("%d", &j);
 	*ret = u[j];
-	return 0;
+	return 1;
     }
     char *w;
     if(razb(word, dict, &w)) {
 	*ret=w;
-	return 0;
+	return 1;
     }
-    return 1;
+    return 0;
 }
