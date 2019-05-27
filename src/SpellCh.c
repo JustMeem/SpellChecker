@@ -3,22 +3,8 @@
 #include <string.h>
 #include <ctype.h>
 #include <locale.h>
-//#include "SpellChecker.h"
-char * words[] =
-{
-    "join",
-    "oil",
-    "home",
-    "good",
-    "go",
-    "hello",
-    "night",
-    "right",
-    "left",
-    "run",
-    "demon"
-};
-int length = sizeof(words)/sizeof(*words);
+#include "SpellCh.h"
+
 
 int raven(char *w1, char *w2) {
     while(*w1 || *w2) {
@@ -105,8 +91,9 @@ int potb(char *word, char *eq)
     return 0;
 }
 
-int razb(char *word, char *words[], char **w)
+int razb(char *word, Dict* dict, char **w)
 {
+    char **words = dict->words;
     int reg;
     int i,k,l,o;
     char t[BUFSIZ], m[BUFSIZ], f[BUFSIZ];
@@ -127,14 +114,14 @@ int razb(char *word, char *words[], char **w)
 	t[reg] ='\0';
 	m[o] ='\0';
 	f[k+2] ='\0';
-	for (i = 0;i< length;i++) {
-	    if (raven(t,words[i])) {
+	for (i = 0;i < dict->size;i++) {
+	    if (raven(t, words[i])) {
 		l++;
 		break;
 	    }
 	}
-	for (i = 0;i< length;i++) {
-	    if (raven(m,words[i])) {
+	for (i = 0;i< dict->size;i++) {
+	    if (raven(m, words[i])) {
 		l++;
 		break;
 	    }
@@ -188,15 +175,16 @@ int perb(char *word, char *eq)
     return 0;
 }
 
-int SpellCheckerAuto(char *word, char *words[], char **ret) {
+int SpellCheckerAuto(char *word, Dict *dict, char **ret) {
+    char **words = dict->words;
     int reg;
     char *w;
-    for (reg = 0;reg < length; reg++) {
+    for (reg = 0;reg < dict->size; reg++) {
 	if (raven(word, words[reg])) {
 	    return 1;
 	}
     }
-    for (reg = 0;reg < length; reg++) {
+    for (reg = 0;reg < dict->size; reg++) {
 	if(lishb(word, words[reg])) {
 	    *ret = words[reg];
 	    return 0;
@@ -214,23 +202,24 @@ int SpellCheckerAuto(char *word, char *words[], char **ret) {
 	    return 0;
 	}
     }
-    if (razb(word, words, &w)) {
+    if (razb(word, dict, &w)) {
 	*ret = w;
 	return 0;
     }
     return 1;
 }
 
-int SpellCheckerHand(char *word, char *words[], char **ret) {
+int SpellCheckerHand(char *word, Dict *dict, char **ret) {
+    char **words = dict->words;
     int reg, j;
     int k = 0;
     char *u[BUFSIZ];
-    for (reg = 0;reg < length; reg++) {
+    for (reg = 0;reg < dict->size; reg++) {
 	if (raven(word, words[reg])) {
 	    return 1;
 	}
     }
-    for (reg = 0;reg < length; reg++) {
+    for (reg = 0;reg < dict->size; reg++) {
 	if(lishb(word, words[reg])) {
 	    u[k] = words[reg];
 	    k++;
@@ -258,27 +247,9 @@ int SpellCheckerHand(char *word, char *words[], char **ret) {
 	return 0;
     }
     char *w;
-    if(razb(word, words, &w)) {
+    if(razb(word, dict, &w)) {
 	*ret=w;
 	return 0;
     }
     return 1;
-}
-
-int  main () {
-    int reg;
-    char word[BUFSIZ];
-    char *ret;
-    for (reg = 0;reg < length; reg++) {
-	printf("%d%s\n",reg, words[reg]);
-    }
-    for(;;) {
-	scanf("%s",word);
-	if(SpellCheckerHand(word, words, &ret) < 1) {
-	    printf(" %s ", ret);
-	} else {
-	    printf(" %s ", word);
-	}
-    }
-    return 0;
 }
