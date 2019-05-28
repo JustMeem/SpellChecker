@@ -14,7 +14,6 @@ typedef struct Dict{
 }Dict;
 
 int raven(char *w1, char *w2);
-void regist(char *word);
 int lishb(char *word, char *eq);
 int potb(char *word, char *eq);
 int zamb(char *word, char *eq);
