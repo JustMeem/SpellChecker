@@ -1,11 +1,14 @@
 all: bin/SpellCh  bin/SpellCh-test
 
 
-bin/SpellCh: build/src/main.o  build/src/SpellCh.o 
-	gcc -Wall -Werror build/src/main.o build/src/SpellCh.o -o bin/SpellCh
+bin/SpellCh: build/src/main.o  build/src/SpellCh.o  build/src/dict.o
+	gcc -Wall -Werror build/src/main.o build/src/SpellCh.o build/src/dict.o -o bin/SpellCh
 
 build/src/main.o: src/main.c
 	gcc -Wall -Werror -c src/main.c -o build/src/main.o
+
+build/src/dict.o: src/dict.c
+	gcc -Wall -Werror -c src/dict.c -o build/src/dict.o
 
 build/src/SpellCh.o: src/SpellCh.c
 	gcc -Wall -Werror -c src/SpellCh.c -o build/src/SpellCh.o

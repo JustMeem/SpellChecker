@@ -1,9 +1,4 @@
 #include "SpellCh.h"
-#include <ctype.h>
-#include <locale.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
 int raven(char* w1, char* w2)
 {
