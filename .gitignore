@@ -3,3 +3,4 @@ SpellCh
 SpellCh-test
 *.o
 prog
+.vscode
