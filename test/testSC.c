@@ -1,40 +1,30 @@
+#include "../src/SpellCh.h"
+#include "../thirdparty/ctest.h"
+#include <ctype.h>
+#include <locale.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <ctype.h>
-#include <locale.h>
-#include "../src/SpellCh.h"
-#include "../thirdparty/ctest.h"
 
-char  *words[]= {
-    "join",
-    "oil",
-    "home",
-    "good",
-    "go",
-    "hello",
-    "night",
-    "right",
-    "left",
-    "run",
-    "demon"
-};
-int length = sizeof(words)/sizeof(*words);
+char* words[] = {"join",
+                 "oil",
+                 "home",
+                 "good",
+                 "go",
+                 "hello",
+                 "night",
+                 "right",
+                 "left",
+                 "run",
+                 "demon"};
+int length = sizeof(words) / sizeof(*words);
 
 CTEST(spellchecker, auto)
 {
-    char *word[] = {
-	"jon",
-	"john",
-	"joiin",
-	"joni",
-	"gohome",
-	"join",
-	"jnnn"
-    };
-    char *ret;
+    char* word[] = {"jon", "john", "joiin", "joni", "gohome", "join", "jnnn"};
+    char* ret;
 
-    Dict dict ={sizeof(words), length, words};
+    Dict dict = {sizeof(words), length, words};
 
     int c2 = 0;
     int c4 = 0;
@@ -45,34 +35,34 @@ CTEST(spellchecker, auto)
     int c14 = 0;
 
     int c1 = SpellCheckerAuto(word[0], &dict, &ret);
-    if (strcmp(ret, "join")==0) {
-	c2 = 1;
-    } 
-    int c3 =SpellCheckerAuto(word[1], &dict, &ret);
-    if (strcmp(ret, "join")==0) {
-	c4 = 1;
+    if (strcmp(ret, "join") == 0) {
+        c2 = 1;
     }
-    int c5 =SpellCheckerAuto(word[2], &dict, &ret);
-    if (strcmp(ret, "join")==0) {
-	c6 = 1;
+    int c3 = SpellCheckerAuto(word[1], &dict, &ret);
+    if (strcmp(ret, "join") == 0) {
+        c4 = 1;
     }
-    int c7 =SpellCheckerAuto(word[3], &dict, &ret);
-    if (strcmp(ret, "join")==0) {
-	c8 = 1;
+    int c5 = SpellCheckerAuto(word[2], &dict, &ret);
+    if (strcmp(ret, "join") == 0) {
+        c6 = 1;
     }
-    int c9 =SpellCheckerAuto(word[4], &dict, &ret);
-    if (strcmp(ret, "go home")==0) {
-	c10 = 1;
+    int c7 = SpellCheckerAuto(word[3], &dict, &ret);
+    if (strcmp(ret, "join") == 0) {
+        c8 = 1;
     }
-    int c11 =SpellCheckerAuto(word[5], &dict, &ret);
-    if (strcmp(ret, "join")!=0) {
-	c12 = 1;
+    int c9 = SpellCheckerAuto(word[4], &dict, &ret);
+    if (strcmp(ret, "go home") == 0) {
+        c10 = 1;
     }
-    int c13 =SpellCheckerAuto(word[6], &dict, &ret);
-    if (strcmp(ret, "join")!=0) {
-	c14 = 1;
+    int c11 = SpellCheckerAuto(word[5], &dict, &ret);
+    if (strcmp(ret, "join") != 0) {
+        c12 = 1;
     }
-    
+    int c13 = SpellCheckerAuto(word[6], &dict, &ret);
+    if (strcmp(ret, "join") != 0) {
+        c14 = 1;
+    }
+
     const int exp1 = 1;
     const int exp2 = 1;
     const int exp3 = 1;
@@ -107,13 +97,13 @@ CTEST(spellchecker, auto)
 CTEST(spellchecker, hand)
 {
     char *word[] = {
-	"jon",
-	"john",
-	"joiin",
-	"joni",
-	"gohome",
-	"join",
-	"jnnn"
+        "jon",
+        "john",
+        "joiin",
+        "joni",
+        "gohome",
+        "join",
+        "jnnn"
     };
     char *ret;
 
@@ -129,33 +119,34 @@ CTEST(spellchecker, hand)
 
     int c1 = SpellCheckerHand(word[0], &dict, &ret);
     if (strcmp(ret, "join")==0) {
-	c2 = 1;
-    } 
+        c2 = 1;
+    }
     int c3 =SpellCheckerHand(word[1], &dict, &ret);
     if (strcmp(ret, "join")==0) {
-	c4 = 1;
+        c4 = 1;
     }
     int c5 =SpellCheckerHand(word[2], &dict, &ret);
     if (strcmp(ret, "join")==0) {
-	c6 = 1;
+        c6 = 1;
     }
     int c7 =SpellCheckerHand(word[3], &dict, &ret);
     if (strcmp(ret, "join")==0) {
-	c8 = 1;
+        c8 = 1;
     }
     int c9 =SpellCheckerHand(word[4], &dict, &ret);
     if (strcmp(ret, "go home")==0) {
-	c10 = 1;
+        c10 = 1;
     }
     int c11 =SpellCheckerHand(word[5], &dict, &ret);
     if (strcmp(ret, "join")!=0) {
-	c12 = 1;
+        c12 = 1;
     }
     int c13 =SpellCheckerHand(word[6], &dict, &ret);
     if (strcmp(ret, "join")!=0) {
-	c14 = 1;
+        c14 = 1;
     }
     
+
     const int exp1 = 1;
     const int exp2 = 1;
     const int exp3 = 1;
@@ -189,16 +180,10 @@ CTEST(spellchecker, hand)
 */
 CTEST(spellchecker, razb)
 {
-    char *word[] = {
-	"gohome",
-	"go home",
-	"homego",
-	"hemego",
-	"h6mego"
-    };
-    char *ret;
+    char* word[] = {"gohome", "go home", "homego", "hemego", "h6mego"};
+    char* ret;
 
-    Dict dict ={sizeof(words), length, words};
+    Dict dict = {sizeof(words), length, words};
 
     int c2 = 0;
     int c4 = 0;
@@ -207,26 +192,26 @@ CTEST(spellchecker, razb)
     int c10 = 0;
 
     int c1 = razb(word[0], &dict, &ret);
-    if (strcmp(ret, "go home")==0) {
-	c2 = 1;
-    } 
-    int c3 =razb(word[1], &dict, &ret);
-    if (strcmp(ret, "go home")!=0) {
-	c4 = 1;
+    if (strcmp(ret, "go home") == 0) {
+        c2 = 1;
     }
-    int c5 =razb(word[2], &dict, &ret);
-    if (strcmp(ret, "home go")==0) {
-	c6 = 1;
+    int c3 = razb(word[1], &dict, &ret);
+    if (strcmp(ret, "go home") != 0) {
+        c4 = 1;
     }
-    int c7 =razb(word[3], &dict, &ret);
-    if (strcmp(ret, "home go")!=0) {
-	c8 = 1;
+    int c5 = razb(word[2], &dict, &ret);
+    if (strcmp(ret, "home go") == 0) {
+        c6 = 1;
     }
-    int c9 =razb(word[4], &dict, &ret);
-    if (strcmp(ret, "home go")!=0) {
-	c10 = 1;
+    int c7 = razb(word[3], &dict, &ret);
+    if (strcmp(ret, "home go") != 0) {
+        c8 = 1;
     }
-    
+    int c9 = razb(word[4], &dict, &ret);
+    if (strcmp(ret, "home go") != 0) {
+        c10 = 1;
+    }
+
     const int exp1 = 1;
     const int exp2 = 1;
     const int exp3 = 0;
@@ -251,21 +236,20 @@ CTEST(spellchecker, razb)
 }
 CTEST(spellchecker, potb)
 {
-    char *word[] = {
-	"jon",
-	"joi",
-	"oin",
-	"heo",
-	"j7n",
+    char* word[] = {
+            "jon",
+            "joi",
+            "oin",
+            "heo",
+            "j7n",
     };
-
 
     int c1 = potb(word[0], words[0]);
     int c2 = potb(word[1], words[0]);
     int c3 = potb(word[2], words[0]);
     int c4 = potb(word[3], words[0]);
     int c5 = potb(word[4], words[0]);
-    
+
     const int exp1 = 1;
     const int exp2 = 1;
     const int exp3 = 1;
@@ -280,12 +264,12 @@ CTEST(spellchecker, potb)
 }
 CTEST(spellchecker, lishb)
 {
-    char *word[] = {
-	"joinq",
-	"hjoin",
-	"joyin",
-	"joiiin",
-	"jo7in",
+    char* word[] = {
+            "joinq",
+            "hjoin",
+            "joyin",
+            "joiiin",
+            "jo7in",
     };
 
     int c1 = lishb(word[0], words[0]);
@@ -293,7 +277,7 @@ CTEST(spellchecker, lishb)
     int c3 = lishb(word[2], words[0]);
     int c4 = lishb(word[3], words[0]);
     int c5 = lishb(word[4], words[0]);
-    
+
     const int exp1 = 1;
     const int exp2 = 1;
     const int exp3 = 1;
@@ -308,12 +292,12 @@ CTEST(spellchecker, lishb)
 }
 CTEST(spellchecker, zamb)
 {
-    char *word[] = {
-	"joir",
-	"hoin",
-	"jyin",
-	"jion",
-	"j7in",
+    char* word[] = {
+            "joir",
+            "hoin",
+            "jyin",
+            "jion",
+            "j7in",
     };
 
     int c1 = zamb(word[0], words[0]);
@@ -322,7 +306,7 @@ CTEST(spellchecker, zamb)
     int c4 = zamb(word[3], words[0]);
     int c5 = zamb(word[4], words[0]);
     printf(" %d ", c5);
-    
+
     const int exp1 = 1;
     const int exp2 = 1;
     const int exp3 = 1;
@@ -337,12 +321,12 @@ CTEST(spellchecker, zamb)
 }
 CTEST(spellchecker, perb)
 {
-    char *word[] = {
-	"joni",
-	"ojin",
-	"jion",
-	"ojni",
-	"7jin",
+    char* word[] = {
+            "joni",
+            "ojin",
+            "jion",
+            "ojni",
+            "7jin",
     };
 
     int c1 = perb(word[0], words[0]);
@@ -350,7 +334,7 @@ CTEST(spellchecker, perb)
     int c3 = perb(word[2], words[0]);
     int c4 = perb(word[3], words[0]);
     int c5 = perb(word[4], words[0]);
-    
+
     const int exp1 = 1;
     const int exp2 = 1;
     const int exp3 = 1;
@@ -365,12 +349,12 @@ CTEST(spellchecker, perb)
 }
 CTEST(spellchecker, raven)
 {
-    char *word[] = {
-	"join",
-	"Join",
-	"JoIn",
-	"jon",
-	"jon7",
+    char* word[] = {
+            "join",
+            "Join",
+            "JoIn",
+            "jon",
+            "jon7",
     };
 
     int c1 = raven(word[0], words[0]);
@@ -378,7 +362,7 @@ CTEST(spellchecker, raven)
     int c3 = raven(word[2], words[0]);
     int c4 = raven(word[3], words[0]);
     int c5 = raven(word[4], words[0]);
-    
+
     const int exp1 = 1;
     const int exp2 = 1;
     const int exp3 = 1;

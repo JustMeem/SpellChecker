@@ -6,7 +6,7 @@ int popDict(Dict* dict, char* str)
     if (str == NULL)
         return 2;
     if (dict->size + 1 > dict->capacity) {
-        dict->capacity *= 2;
+        dict->capacity = dict->capacity * 2 + 1;
         dict->words = realloc(dict->words, dict->capacity);
         if (dict->words == NULL)
             return 1;
