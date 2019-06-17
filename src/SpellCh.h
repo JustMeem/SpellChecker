@@ -15,6 +15,5 @@ int zamb(char* word, char* eq);
 int perb(char* word, char* eq);
 int razb(char* word, Dict* dict, char** w);
 int SpellCheckerAuto(char* word, Dict* dict, char** ret);
-int SpellCheckerHand(char* word, Dict* dict, char** ret);
 
 #endif

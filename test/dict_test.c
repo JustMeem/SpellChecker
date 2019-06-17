@@ -1,33 +1,5 @@
 #include "../src/dict.h"
 #include "../thirdparty/ctest.h"
-#define PRINT_D(X) printf("%d\n", X)
-#define PRINT_S(X) printf("%s\n", X)
-/*
-typedef struct Dict {
-    int capacity;
-    int size;
-    char** words;
-} Dict;
-*/
-CTEST(spellchecker, save)
-{
-    char* words[] = {"first", "second", "third"};
-    Dict dict = {3, 3, words};
-    FILE* testfile = fopen("test.txt", "w");
-
-    saveDict(testfile, &dict);
-    fclose(testfile);
-
-    testfile = fopen("test.txt", "r");
-    char* s = malloc(sizeof(char) * 255);
-    
-
-    ASSERT_STR("first\n", fgets(s, 255, testfile));
-    ASSERT_STR("second\n", fgets(s, 255, testfile));
-    ASSERT_STR("third\n", fgets(s, 255, testfile));
-    fclose(testfile);
-    free(s);
-}
 
 CTEST(spellchecker, pop)
 {

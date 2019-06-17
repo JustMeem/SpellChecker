@@ -11,5 +11,4 @@ typedef struct Dict {
 
 int popDict(Dict* dict, char* str);
 Dict* loadDict(FILE* savefile);
-int saveDict(FILE* savefile, Dict* dict);
 void freeDict(Dict* dict);

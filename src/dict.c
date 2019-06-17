@@ -46,14 +46,7 @@ Dict* loadDict(FILE* savefile)
     }
     return dict;
 }
-int saveDict(FILE* savefile, Dict* dict)
-{
-    for (size_t i = 0; i < dict->size; i++) {
-        if (fprintf(savefile, "%s\n", dict->words[i]) == 0)
-            return 1;
-    }
-    return 0;
-}
+
 
 void freeDict(Dict* dict)
 {
