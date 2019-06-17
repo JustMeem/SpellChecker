@@ -47,6 +47,7 @@ int checkFile(FILE* src, FILE* dictfile, FILE* out)
         return -1;
     }
     char* word = malloc(sizeof(char) * 255);
+    char* wout = malloc(sizeof(char) * 255);
     int i = 0;
     char buffer;
     while (1) {
@@ -59,8 +60,10 @@ int checkFile(FILE* src, FILE* dictfile, FILE* out)
         } else {
             if (i != 0) {
                 word[i] = '\0';
-                SpellCheckerAuto(word, dict, &word);
-                fputs(word, out);
+                if(SpellCheckerAuto(word, dict, &wout)){
+                    fputs(wout, out);
+                }else
+                    fputs(word, out);
                 i = 0;
             }
             if (buffer != EOF)
@@ -70,6 +73,7 @@ int checkFile(FILE* src, FILE* dictfile, FILE* out)
         }
     } // while (buffer != EOF);
     //(buffer = fgetc(src)) != EOF
+    free(wout);
     freeDict(dict);
     return 0;
 }
