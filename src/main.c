@@ -29,13 +29,13 @@ int main(int argc, char* argv[])
                DICTNAME);
         return -2;
     }
-    FILE* src = fopen(argv[3], "r+");
+    FILE* src = fopen(argv[2], "r+");
     if (src == NULL) {
         printf("file not found\n");
         fclose(dictfile);
         return -1;
     }
-    switch (command(argv[2])) {
+    switch (command(argv[1])) {
     case 1: // read
         readFile(src, dictfile);
         fclose(dictfile);
@@ -62,7 +62,7 @@ int main(int argc, char* argv[])
         fclose(src);
         return -1;
     default:
-        printf("not found command %s\n", argv[2]);
+        printf("not found command %s\n", argv[1]);
         fclose(dictfile);
         return 2;
     }
