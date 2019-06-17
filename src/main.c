@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#define DICTNAME "dict.txt"
+#define DICTNAME "dict1.txt"
 #define COMCOUNT 2
 
 
