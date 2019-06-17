@@ -6,7 +6,6 @@
 #define DICTNAME "dict1.txt"
 #define COMCOUNT 2
 
-
 int main(int argc, char* argv[])
 {
     if (argc != 2) {
@@ -15,7 +14,8 @@ int main(int argc, char* argv[])
     }
     FILE* dictfile = fopen(DICTNAME, "r+");
     if (dictfile == NULL) {
-        printf("dict file not found, requiered dictonary with name %s \n", DICTNAME);
+        printf("dict file not found, requiered dictonary with name %s \n",
+               DICTNAME);
         return -2;
     }
     FILE* src = fopen(argv[1], "r+");

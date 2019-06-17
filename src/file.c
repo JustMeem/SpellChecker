@@ -20,9 +20,9 @@ int checkFile(FILE* src, FILE* dictfile, FILE* out)
         } else {
             if (i != 0) {
                 word[i] = '\0';
-                if(SpellCheckerAuto(word, dict, &wout)){
+                if (SpellCheckerAuto(word, dict, &wout)) {
                     fputs(wout, out);
-                }else
+                } else
                     fputs(word, out);
                 i = 0;
             }
@@ -31,7 +31,7 @@ int checkFile(FILE* src, FILE* dictfile, FILE* out)
             else
                 break;
         }
-    } 
+    }
     free(wout);
     free(word);
     freeDict(dict);

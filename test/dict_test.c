@@ -4,7 +4,7 @@
 CTEST(spellchecker, pop)
 {
     char** words = malloc(sizeof(char*) * 3);
-    Dict *dict = malloc(sizeof(Dict));
+    Dict* dict = malloc(sizeof(Dict));
     dict->capacity = 3;
     dict->size = 0;
     dict->words = words;
@@ -12,7 +12,6 @@ CTEST(spellchecker, pop)
     for (int i = 0; i < 4; i++) {
         popDict(dict, "word");
     }
-
 
     ASSERT_EQUAL(dict->size, 4);
     ASSERT_EQUAL(dict->capacity, 7);
@@ -25,7 +24,7 @@ CTEST(spellchecker, pop)
 }
 CTEST(spellchecker, load)
 {
-    FILE *f_dict = fopen("dict.txt", "r+");
+    FILE* f_dict = fopen("dict.txt", "r+");
     Dict* dict = loadDict(f_dict);
     ASSERT_EQUAL(3, dict->size);
     ASSERT_STR("first", dict->words[0]);
