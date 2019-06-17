@@ -24,13 +24,14 @@ int length = sizeof(words)/sizeof(*words);
 CTEST(spellchecker, auto)
 {
     char *word[] = {
-	"jon",
-	"john",
-	"joiin",
-	"joni",
+	"helo",
+	"helllo",
+	"heilo",
+	"hlelo",
 	"gohome",
-	"join",
-	"jnnn"
+	"hello",
+	"nnnn",
+	"hleol"
     };
     char *ret;
 
@@ -43,21 +44,22 @@ CTEST(spellchecker, auto)
     int c10 = 0;
     int c12 = 0;
     int c14 = 0;
+    int c16 = 0;
 
     int c1 = SpellCheckerAuto(word[0], &dict, &ret);
-    if (strcmp(ret, "join")==0) {
+    if (strcmp(ret, "hello")==0) {
 	c2 = 1;
     } 
     int c3 =SpellCheckerAuto(word[1], &dict, &ret);
-    if (strcmp(ret, "join")==0) {
+    if (strcmp(ret, "hello")==0) {
 	c4 = 1;
     }
     int c5 =SpellCheckerAuto(word[2], &dict, &ret);
-    if (strcmp(ret, "join")==0) {
+    if (strcmp(ret, "hello")==0) {
 	c6 = 1;
     }
     int c7 =SpellCheckerAuto(word[3], &dict, &ret);
-    if (strcmp(ret, "join")==0) {
+    if (strcmp(ret, "hello")==0) {
 	c8 = 1;
     }
     int c9 =SpellCheckerAuto(word[4], &dict, &ret);
@@ -65,14 +67,17 @@ CTEST(spellchecker, auto)
 	c10 = 1;
     }
     int c11 =SpellCheckerAuto(word[5], &dict, &ret);
-    if (strcmp(ret, "join")!=0) {
+    if (strcmp(ret, "hello")!=0) {
 	c12 = 1;
     }
     int c13 =SpellCheckerAuto(word[6], &dict, &ret);
     if (strcmp(ret, "join")!=0) {
 	c14 = 1;
     }
-    
+    int c15 =SpellCheckerAuto(word[7], &dict, &ret);
+    if (strcmp(ret, "hello")==0) {
+	c16 = 1;
+    }
     const int exp1 = 1;
     const int exp2 = 1;
     const int exp3 = 1;
@@ -87,6 +92,8 @@ CTEST(spellchecker, auto)
     const int exp12 = 1;
     const int exp13 = 0;
     const int exp14 = 1;
+    const int exp15 = 1;
+    const int exp16 = 1;
 
     ASSERT_EQUAL(exp1, c1);
     ASSERT_EQUAL(exp2, c2);
@@ -101,92 +108,11 @@ CTEST(spellchecker, auto)
     ASSERT_EQUAL(exp11, c11);
     ASSERT_EQUAL(exp12, c12);
     ASSERT_EQUAL(exp13, c13);
-    ASSERT_EQUAL(exp14, c14);
+    ASSERT_EQUAL(exp14, c14); 
+    ASSERT_EQUAL(exp15, c15); 
+    ASSERT_EQUAL(exp16, c16);
 }
-/*
-CTEST(spellchecker, hand)
-{
-    char *word[] = {
-	"jon",
-	"john",
-	"joiin",
-	"joni",
-	"gohome",
-	"join",
-	"jnnn"
-    };
-    char *ret;
 
-    Dict dict ={sizeof(words), length, words};
-
-    int c2 = 0;
-    int c4 = 0;
-    int c6 = 0;
-    int c8 = 0;
-    int c10 = 0;
-    int c12 = 0;
-    int c14 = 0;
-
-    int c1 = SpellCheckerHand(word[0], &dict, &ret);
-    if (strcmp(ret, "join")==0) {
-	c2 = 1;
-    } 
-    int c3 =SpellCheckerHand(word[1], &dict, &ret);
-    if (strcmp(ret, "join")==0) {
-	c4 = 1;
-    }
-    int c5 =SpellCheckerHand(word[2], &dict, &ret);
-    if (strcmp(ret, "join")==0) {
-	c6 = 1;
-    }
-    int c7 =SpellCheckerHand(word[3], &dict, &ret);
-    if (strcmp(ret, "join")==0) {
-	c8 = 1;
-    }
-    int c9 =SpellCheckerHand(word[4], &dict, &ret);
-    if (strcmp(ret, "go home")==0) {
-	c10 = 1;
-    }
-    int c11 =SpellCheckerHand(word[5], &dict, &ret);
-    if (strcmp(ret, "join")!=0) {
-	c12 = 1;
-    }
-    int c13 =SpellCheckerHand(word[6], &dict, &ret);
-    if (strcmp(ret, "join")!=0) {
-	c14 = 1;
-    }
-    
-    const int exp1 = 1;
-    const int exp2 = 1;
-    const int exp3 = 1;
-    const int exp4 = 1;
-    const int exp5 = 1;
-    const int exp6 = 1;
-    const int exp7 = 1;
-    const int exp8 = 1;
-    const int exp9 = 1;
-    const int exp10 = 1;
-    const int exp11 = 0;
-    const int exp12 = 1;
-    const int exp13 = 0;
-    const int exp14 = 1;
-
-    ASSERT_EQUAL(exp1, c1);
-    ASSERT_EQUAL(exp2, c2);
-    ASSERT_EQUAL(exp3, c3);
-    ASSERT_EQUAL(exp4, c4);
-    ASSERT_EQUAL(exp5, c5);
-    ASSERT_EQUAL(exp6, c6);
-    ASSERT_EQUAL(exp7, c7);
-    ASSERT_EQUAL(exp8, c8);
-    ASSERT_EQUAL(exp9, c9);
-    ASSERT_EQUAL(exp10, c10);
-    ASSERT_EQUAL(exp11, c11);
-    ASSERT_EQUAL(exp12, c12);
-    ASSERT_EQUAL(exp13, c13);
-    ASSERT_EQUAL(exp14, c14);
-}
-*/
 CTEST(spellchecker, razb)
 {
     char *word[] = {
@@ -255,16 +181,16 @@ CTEST(spellchecker, potb)
 	"jon",
 	"joi",
 	"oin",
-	"heo",
+	"jn",
 	"j7n",
     };
 
 
-    int c1 = potb(word[0], words[0]);
-    int c2 = potb(word[1], words[0]);
-    int c3 = potb(word[2], words[0]);
-    int c4 = potb(word[3], words[0]);
-    int c5 = potb(word[4], words[0]);
+    int c1 = potb(word[0], words[0], 0);
+    int c2 = potb(word[1], words[0], 0);
+    int c3 = potb(word[2], words[0], 0);
+    int c4 = potb(word[3], words[0], 0);
+    int c5 = potb(word[4], words[0], 0);
     
     const int exp1 = 1;
     const int exp2 = 1;
@@ -288,11 +214,11 @@ CTEST(spellchecker, lishb)
 	"jo7in",
     };
 
-    int c1 = lishb(word[0], words[0]);
-    int c2 = lishb(word[1], words[0]);
-    int c3 = lishb(word[2], words[0]);
-    int c4 = lishb(word[3], words[0]);
-    int c5 = lishb(word[4], words[0]);
+    int c1 = lishb(word[0], words[0], 0);
+    int c2 = lishb(word[1], words[0], 0);
+    int c3 = lishb(word[2], words[0], 0);
+    int c4 = lishb(word[3], words[0], 0);
+    int c5 = lishb(word[4], words[0], 0);
     
     const int exp1 = 1;
     const int exp2 = 1;
@@ -316,11 +242,11 @@ CTEST(spellchecker, zamb)
 	"j7in",
     };
 
-    int c1 = zamb(word[0], words[0]);
-    int c2 = zamb(word[1], words[0]);
-    int c3 = zamb(word[2], words[0]);
-    int c4 = zamb(word[3], words[0]);
-    int c5 = zamb(word[4], words[0]);
+    int c1 = zamb(word[0], words[0], 0);
+    int c2 = zamb(word[1], words[0], 0);
+    int c3 = zamb(word[2], words[0], 0);
+    int c4 = zamb(word[3], words[0], 0);
+    int c5 = zamb(word[4], words[0], 0);
     printf(" %d ", c5);
     
     const int exp1 = 1;
@@ -345,11 +271,11 @@ CTEST(spellchecker, perb)
 	"7jin",
     };
 
-    int c1 = perb(word[0], words[0]);
-    int c2 = perb(word[1], words[0]);
-    int c3 = perb(word[2], words[0]);
-    int c4 = perb(word[3], words[0]);
-    int c5 = perb(word[4], words[0]);
+    int c1 = perb(word[0], words[0], 0);
+    int c2 = perb(word[1], words[0], 0);
+    int c3 = perb(word[2], words[0], 0);
+    int c4 = perb(word[3], words[0], 0);
+    int c5 = perb(word[4], words[0], 0);
     
     const int exp1 = 1;
     const int exp2 = 1;

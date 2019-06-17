@@ -12,7 +12,24 @@ int raven(char* w1, char* w2)
     return 1;
 }
 
-int lishb(char* word, char* eq)
+int editsc(char* word, char* eq, int y) {
+    if (lishb(word, eq, y)){
+	return 1;
+    }
+    if(zamb(word, eq, y)) {
+	return 1;
+    }
+    if(potb(word, eq, y)) {
+	return 1;
+    }
+    if(perb(word, eq, y)) {
+	return 1;
+    }
+    return 0;
+
+}
+
+int lishb(char* word, char* eq, int y)
 {
     int reg, i, k;
     char t[BUFSIZ];
@@ -27,12 +44,17 @@ int lishb(char* word, char* eq)
         t[k + 1] = '\0';
         if (raven(t, eq)) {
             return 1;
-        }
+        } else if(y!=0) { 
+	    if(editsc(t, eq, 0)) {
+		return 1;
+	    }
+	}
     }
     return 0;
 }
 
-int potb(char* word, char* eq)
+
+int potb(char* word, char* eq, int y)
 {
     char e;
     int reg;
@@ -69,7 +91,11 @@ int potb(char* word, char* eq)
             t[k + 1] = '\0';
             if (raven(t, eq)) {
                 return 1;
-            }
+            } else if(y!=0) { 
+		if(editsc(t, eq, 0)) {
+		return 1;
+	    }
+	}
         }
     }
     return 0;
@@ -118,7 +144,7 @@ int razb(char* word, Dict* dict, char** w)
     return 0;
 }
 
-int zamb(char* word, char* eq)
+int zamb(char* word, char* eq, int y)
 {
     char e;
     int reg;
@@ -134,13 +160,17 @@ int zamb(char* word, char* eq)
             t[k + 1] = '\0';
             if (raven(t, eq)) {
                 return 1;
-            }
+            } else if(y!=0) { 
+		if(editsc(t, eq, 0)) {
+		return 1;
+	    }
+	}
         }
     }
     return 0;
 }
 
-int perb(char* word, char* eq)
+int perb(char* word, char* eq, int y)
 {
     int reg;
     int i;
@@ -153,7 +183,11 @@ int perb(char* word, char* eq)
         t[reg + 1] = word[reg];
         if (raven(t, eq)) {
             return 1;
-        }
+        } else if(y!=0) { 
+	    if(editsc(t, eq, 0)) {
+		return 1;
+	    }
+	}
     }
     return 0;
 }
@@ -169,71 +203,14 @@ int SpellCheckerAuto(char* word, Dict* dict, char** ret)
         }
     }
     for (reg = 0; reg < dict->size; reg++) {
-        if (lishb(word, words[reg])) {
+        if (editsc(word, words[reg], 1)) {
             *ret = words[reg];
             return 1;
-        }
-        if (potb(word, words[reg])) {
-            *ret = words[reg];
-            return 1;
-        }
-        if (perb(word, words[reg])) {
-            *ret = words[reg];
-            return 1;
-        }
-        if (zamb(word, words[reg])) {
-            *ret = words[reg];
-            return 1;
-        }
-    }
-    if (razb(word, dict, &w)) {
-        *ret = w;
-        return 1;
-    }
-    return 0;
-}
-
-int SpellCheckerHand(char* word, Dict* dict, char** ret)
-{
-    char** words = dict->words;
-    int reg, j;
-    int k = 0;
-    char* u[BUFSIZ];
-    for (reg = 0; reg < dict->size; reg++) {
-        if (raven(word, words[reg])) {
-            return 0;
-        }
-    }
-    for (reg = 0; reg < dict->size; reg++) {
-        if (lishb(word, words[reg])) {
-            u[k] = words[reg];
-            k++;
-        }
-        if (potb(word, words[reg])) {
-            u[k] = words[reg];
-            k++;
-        }
-        if (perb(word, words[reg])) {
-            u[k] = words[reg];
-            k++;
-        }
-        if (zamb(word, words[reg])) {
-            u[k] = words[reg];
-            k++;
-        }
-    }
-    if (k) {
-        for (int i = 0; i < k; i++) {
-            printf("%d-%s\n", i, u[i]);
-        }
-        scanf("%d", &j);
-        *ret = u[j];
-        return 1;
-    }
-    char* w;
-    if (razb(word, dict, &w)) {
-        *ret = w;
-        return 1;
+	}
+	if (razb(word, dict, &w)) {
+	    *ret = w;
+	    return 1;
+	}
     }
     return 0;
 }
