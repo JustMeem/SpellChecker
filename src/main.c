@@ -36,12 +36,12 @@ int main(int argc, char* argv[])
         return -1;
     }
     switch (command(argv[1])) {
-    case 1: // read
+    case 0: // read
         readFile(src, dictfile);
         fclose(dictfile);
         fclose(src);
         return 0;
-    case 2:; // check
+    case 1:; // check
         FILE* out = fopen("temp.txt", "w+");
         if (out == NULL) {
             printf("write file error\n");
