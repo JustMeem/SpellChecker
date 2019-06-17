@@ -50,8 +50,9 @@ int main(int argc, char* argv[])
         }
         int buff = checkFile(src, dictfile, out);
         if (buff == 0) {
-            remove(DICTNAME);
-            rename("temp.txt", DICTNAME);
+            //remove(DICTNAME);
+            remove(argv[2]);
+            rename("temp.txt", argv[2]);
             return 0;
         } else if (buff == -1) {
             printf("memory error\n");
