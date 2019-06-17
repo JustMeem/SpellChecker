@@ -16,6 +16,7 @@ int popDict(Dict* dict, char* str)
     return 0;
 }
 
+
 Dict* loadDict(FILE* savefile)
 {
     Dict* dict = malloc(sizeof(Dict));
@@ -33,7 +34,14 @@ Dict* loadDict(FILE* savefile)
         freeDict(dict);
         return NULL;
     }
-    while (fgets(word, WORDSIZE, savefile)) {
+    while (fgets(word, WORDSIZE, savefile) != NULL) {
+        for (int i = 0; word[i] != '\0'; i++)
+        {
+            if(word[i] == '\n'){
+                word[i] = '\0';
+                break;
+            }
+        }
         popDict(dict, word);
         word = malloc(sizeof(char) * WORDSIZE);
     }
@@ -42,7 +50,7 @@ Dict* loadDict(FILE* savefile)
 int saveDict(FILE* savefile, Dict* dict)
 {
     for (size_t i = 0; i < dict->size; i++) {
-        if (fputs(dict->words[i], savefile) == 0)
+        if (fprintf(savefile, "%s\n", dict->words[i]) == 0)
             return 1;
     }
     return 0;

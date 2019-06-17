@@ -17,7 +17,7 @@ build/src/file.o: src/file.c
 	gcc -Wall -Werror -g -o0 -c src/file.c -o build/src/file.o
 
 bin/SpellCh-test: build/test/main.o build/test/testSC.o build/test/file_test.o build/test/dict_test.o build/src/SpellCh.o 
-	gcc -Wall -g -o0 -Werror build/test/main.o build/test/testSC.o build/test/file_test.o build/test/dict_test.o build/src/SpellCh.o build/src/file.o build/src/dict.o  -o bin/SpellCh-test
+	gcc -Wall -g -o0 -Werror build/test/main.o build/test/testSC.o build/test/file_test.o build/test/dict_test.o  build/src/SpellCh.o build/src/file.o build/src/dict.o    -o bin/SpellCh-test
 
 build/test/main.o: test/main.c
 	gcc -I thirdparty -g -o0 -Wall -Werror -c test/main.c -o build/test/main.o
