@@ -74,6 +74,7 @@ int checkFile(FILE* src, FILE* dictfile, FILE* out)
     } // while (buffer != EOF);
     //(buffer = fgetc(src)) != EOF
     free(wout);
+    free(word);
     freeDict(dict);
     return 0;
 }

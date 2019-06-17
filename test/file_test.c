@@ -1,7 +1,30 @@
 #include "../src/file.h"
 #include "../thirdparty/ctest.h"
+/* 
+CTEST(spellchecker, read){
+    FILE *dict = fopen("dict.txt", "r");
+    FILE *src = fopen("words.txt", "r");
+    
+    readFile(src, dict);
 
-/*
+    fclose(dict);
+    dict = fopen("dict.txt", "r");
+
+    char *str = malloc(sizeof(char) * 255);
+    ASSERT_STR("first\n", fgets(str, 255, dict));
+    ASSERT_STR("second\n", fgets(str, 255, dict));
+    ASSERT_STR("third", fgets(str, 255, dict));
+    ASSERT_STR("fourth\n", fgets(str, 255, dict));
+    ASSERT_STR("fifth\n", fgets(str, 255, dict));
+    ASSERT_STR("sixth\n", fgets(str, 255, dict));
+    fclose(dict);
+    dict = fopen("dict.txt", "w");
+    fputs("first\nsecond\nthird", dict);
+    
+    fclose(dict);
+    free(str);
+}
+*/
 CTEST(spellchecker, check){
     FILE *testfile = fopen("test.txt", "w+");
     fputs("first?!###!#@#!#!#@# secnd", testfile);
@@ -11,43 +34,16 @@ CTEST(spellchecker, check){
     testfile = fopen("test.txt", "r+");
     checkFile(testfile, dict, out);
 
+
     
     fclose(out);
     out = fopen("temp.txt", "r+"); 
     char* word = malloc(sizeof(char*)*254);
     
     ASSERT_STR(fgets(word, 254, out), "first?!###!#@#!#!#@# second");
-    free(word);
-
+    
     fclose(out);
     fclose(dict);
     fclose(testfile);
-
-    remove("temp.txt");
-    remove("test.txt");
-} 
-CTEST(spellchecker, read){
-    FILE *testfile = fopen("temp.txt", "w+");
-    fputs("fourth\nfifth\nsixth", testfile);
-
-    FILE *dictfile = fopen("dict.txt", "r+");
-
-    readFile(testfile, dictfile);
-    fclose(testfile);
-    fclose(dictfile);
-
-    dictfile = fopen("dict.txt", "r+");
-    char *s = malloc(sizeof(char) * 255);
-    ASSERT_STR("first\n", fgets(s, 254, dictfile));
-    ASSERT_STR("second\n", fgets(s, 254, dictfile));
-    ASSERT_STR("third\n", fgets(s, 254, dictfile));
-    ASSERT_STR("fourth\n", fgets(s, 254, dictfile));
-    ASSERT_STR("fifth\n", fgets(s, 254, dictfile));
-    ASSERT_STR("sixth\n", fgets(s, 254, dictfile));
-    free(s);
-    fclose(dictfile);
-
-    dictfile = fopen("dict.txt", "w+");
-    fputs("first\nsecond\nthird", dictfile);
-    fclose(dictfile);
-}*/
+    free(word);
+}
