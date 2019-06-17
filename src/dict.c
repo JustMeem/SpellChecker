@@ -5,6 +5,7 @@ int popDict(Dict* dict, char* str)
 {
     if (str == NULL)
         return 2;
+    
     if (dict->size + 1 > dict->capacity) {
         dict->capacity = dict->capacity * 2 + 1;
         dict->words = realloc(dict->words, dict->capacity);
@@ -23,15 +24,20 @@ Dict* loadDict(FILE* savefile)
     dict->words = malloc(sizeof(char*) * 10000);
     dict->capacity = 10000;
     dict->size = 0;
-    if (dict->words = NULL) {
+    if (dict->words == NULL) {
         free(dict);
         return NULL;
     }
     char* word = malloc(sizeof(char) * WORDSIZE);
+    if(word == NULL){
+        freeDict(dict);
+        return NULL;
+    }
     while (fgets(word, WORDSIZE, savefile)) {
         popDict(dict, word);
         word = malloc(sizeof(char) * WORDSIZE);
     }
+    return dict;
 }
 int saveDict(FILE* savefile, Dict* dict)
 {

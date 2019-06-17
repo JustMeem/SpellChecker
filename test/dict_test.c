@@ -1,4 +1,5 @@
 #include "../src/dict.h"
+#include "../thirdparty/ctest.h"
 /*
 typedef struct Dict {
     int capacity;
@@ -22,16 +23,18 @@ CTEST(spellchecker, pop)
     ASSERT_STR(dict.words[2], "word");
     ASSERT_STR(dict.words[3], "word");
     ASSERT_STR(dict.words[4], "word");
+    
     free(words);
 }
 CTEST(spellchecker, load)
 {
-    Dict* dict = loadDict(fopen("dict.txt", "r"));
+    Dict* dict = loadDict(fopen("dict.txt", "r+"));
 
     ASSERT_EQUAL(dict->size, 3);
     ASSERT_STR(dict->words[0], "first");
     ASSERT_STR(dict->words[1], "second");
     ASSERT_STR(dict->words[2], "first");
+    freeDict(dict);
 }
 CTEST(spellchecker, save)
 {
@@ -43,11 +46,12 @@ CTEST(spellchecker, save)
     fclose(testfile);
 
     testfile = fopen("test.txt", "r+");
-    char* word;
+    char* word = malloc(sizeof(char*)*254);
 
     ASSERT_STR(fgets(word, 254, testfile), "first");
     ASSERT_STR(fgets(word, 254, testfile), "second");
     ASSERT_STR(fgets(word, 254, testfile), "third");
+    free(word);
     fclose(testfile);
     remove("test.txt");
 }

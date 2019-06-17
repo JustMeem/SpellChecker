@@ -1,7 +1,7 @@
 #include "file.h"
 
 
-int readFIle(FILE* src, FILE* dictfile)
+int readFile(FILE* src, FILE* dictfile)
 {
     Dict* dict = loadDict(dictfile);
     if (dict == NULL) {

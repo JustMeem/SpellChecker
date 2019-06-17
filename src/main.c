@@ -6,7 +6,7 @@
 #define DICTNAME "dict.txt"
 #define COMCOUNT 2
 
-extern char* commandList[] = {"read", "check"};
+char* commandList[] = {"read", "check"};
 
 int command(char* str)
 {
@@ -29,29 +29,22 @@ int main(int argc, char* argv[])
                DICTNAME);
         return -2;
     }
-
+    FILE* src = fopen(argv[3], "r+");
+    if (src == NULL) {
+        printf("file not found\n");
+        fclose(dictfile);
+        return -1;
+    }
     switch (command(argv[2])) {
     case 1: // read
-        FILE* src = fopen(argv[3], "r+");
-        if (src == NULL) {
-            printf("file not found\n");
-            fclose(dictfile);
-            return -1;
-        }
         readFile(src, dictfile);
         fclose(dictfile);
         fclose(src);
         return 0;
-    case 2: // check
-        FILE* src = fopen(argv[3], "r+");
+    case 2:; // check
         FILE* out = fopen("temp.txt", "w+");
         if (out == NULL) {
             printf("write file error\n");
-            fclose(dictfile);
-            return -1;
-        }
-        if (src == NULL) {
-            printf("file not found\n");
             fclose(dictfile);
             return -1;
         }
