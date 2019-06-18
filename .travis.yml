@@ -5,4 +5,4 @@ branches:
   only:
     - master
 #compiler : gcc
-script: make && git ls-files src/ | xargs clang-format -i && git diff --exit-code
+script: make && git ls-files src/ | xargs clang-format -i && git diff --exit-code && .bin/SpellCh-test
