@@ -17,8 +17,4 @@ CTEST(spellchecker, check)
 
     ASSERT_STR(fgets(word, 254, out), "first?!###!#@#!#!#@# second");
 
-    fclose(out);
-    fclose(dict);
-    fclose(testfile);
-    free(word);
 }
