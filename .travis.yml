@@ -1,6 +1,5 @@
 dist: xenial
 language: c
-os: linux
 branches: 
   only:
     - master
