@@ -1,8 +1,8 @@
-dist: xenial
 language: c
 os: linux
+dist: xenial
 branches: 
   only:
     - master
-compiler : gcc
+#compiler : gcc
 script: make && git ls-files src/ | xargs clang-format -i && git diff --exit-code && ./bin/SpellCh-test
