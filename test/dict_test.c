@@ -13,9 +13,9 @@ CTEST(spellchecker, load)
 }
 CTEST(spellchecker, pop)
 {
-    char** words = malloc(sizeof(char*) * 3);
+    char** words = malloc(sizeof(char*) * 7);
     Dict* dict = malloc(sizeof(Dict));
-    dict->capacity = 3;
+    dict->capacity = 7;
     dict->size = 0;
     dict->words = words;
 
@@ -29,6 +29,4 @@ CTEST(spellchecker, pop)
     ASSERT_STR(dict->words[1], "word");
     ASSERT_STR(dict->words[2], "word");
     ASSERT_STR(dict->words[3], "word");
-
-    free(words);
 }
